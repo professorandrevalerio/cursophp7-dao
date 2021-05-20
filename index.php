@@ -1,10 +1,15 @@
 <?php 	
 require_once("config.php");
 
-$sql = new Sql;
+//aula 64
+//$sql = new Sql;
+//$usuarios = $sql->select("SELECT * FROM tb_usuarios");
+//echo json_encode($usuarios);
 
-$usuarios = $sql->select("SELECT * FROM tb_usuarios");
+//aula 65
+$root = new Usuario();
+$root->loadbyId(3);
 
-echo json_encode($usuarios);
+echo $root;
 
  ?>
