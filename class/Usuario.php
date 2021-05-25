@@ -56,15 +56,20 @@ class Usuario{
 
 	}
 
-	public function __toString(){
-		
+
+
+public function __toString(){
+
 		return json_encode(array(
 			"idusuario"=>$this->getIdusuario(),
 			"deslogin"=>$this->getDeslogin(),
 			"dessenha"=>$this->getDessenha(),
 			"dtcadastro"=>$this->getDtcadastro()->format("d/m/Y H:i:s")
 		));
+
 	}
+	
+	
 }
 
 
