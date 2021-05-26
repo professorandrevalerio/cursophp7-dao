@@ -37,24 +37,23 @@ class Usuario{
 	}			
 
 
-	public function loadbyId($id){
-		$sql = new Sql();
-
+	public function loadById($id){
+ 		$sql = new Sql();
+ 
 		$result = $sql->select("SELECT * FROM tb_usuarios WHERE idusuario = :ID", array(
 			":ID" => $id
 		));
-
-		//if(isset($result[0]))
-		if(count($result) > 0){
-			$row = $result[0];
-
-			$this->setIdusuario($row['idusuario']);
-			$this->setDeslogin($row['deslogin']);
-			$this->setDessenha($row['dessenha']);
-			$this->setDtcadastro(new DateTime($row['dtcadastro']));
-		}
-
+ 
+	if(count($result) > 0) {
+		$row = $result[0];
+		$this->setIdusuario($row['idusuario']);
+		$this->setDeslogin($row['deslogin']);
+		$this->setDessenha($row['dessenha']);
+		$this->setDtcadastro(new DateTime($row['dtcadastro']));
+ 
 	}
+ 
+}
 
 
 

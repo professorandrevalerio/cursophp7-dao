@@ -8,7 +8,7 @@ require_once("config.php");
 
 //aula 65
 $root = new Usuario();
-$root->loadbyId(3);
+$root->loadById(3);
 
 echo $root;
 
