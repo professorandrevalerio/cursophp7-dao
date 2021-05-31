@@ -37,7 +37,7 @@ class Usuario{
 	}			
 
 
-	public function loadbyId($id){
+	public function loadById($id){
 		$sql = new Sql();
 
 		$result = $sql->select("SELECT * FROM tb_usuarios WHERE idusuario = :ID", array(
@@ -46,12 +46,7 @@ class Usuario{
 
 		//if(isset($result[0]))
 		if(count($result) > 0){
-			$row = $result[0];
-
-			$this->setIdusuario($row['idusuario']);
-			$this->setDeslogin($row['deslogin']);
-			$this->setDessenha($row['dessenha']);
-			$this->setDtcadastro(new DateTime($row['dtcadastro']));
+			$this->setData($result[0]);
 		}
 
 	}
@@ -87,17 +82,70 @@ public function login($login, $password)
 		));
 
 		//if(isset($result[0]))
-		if(count($result) > 0){
-			$row = $result[0];
+		if(count($result) > 0) {
 
-			$this->setIdusuario($row['idusuario']);
-			$this->setDeslogin($row['deslogin']);
-			$this->setDessenha($row['dessenha']);
-			$this->setDtcadastro(new DateTime($row['dtcadastro']));
+			$this->setData($result[0]);
+
 		} else{
 			throw new Exception("Login e / ou senha inválido", 1);
 			
 		}
+}
+
+public function setData($data){
+			$this->setIdusuario($data['idusuario']);
+			$this->setDeslogin($data['deslogin']);
+			$this->setDessenha($data['dessenha']);
+			$this->setDtcadastro(new DateTime($data['dtcadastro']));
+
+}
+
+
+public function insert(){
+	$sql = new Sql();
+
+	$result = $sql->select("CALL sp_usarios_insert(:LOGIN, :PASSWORD)", array(
+		':LOGIN'=>$this->getDeslogin(),
+		':PASSWORD'=>$this->getDessenha()
+	));
+
+	if(count($result)>0){
+		$this->setData($result[0]);
+	}
+}
+
+public function update($login, $password){
+	
+	$this->setDeslogin($login);
+	$this->setDessenha($password);
+
+	$sql = new Sql();
+
+	$sql->query("UPDATE tb_usuarios SET deslogin = :LOGIN, dessenha = :PASSWORD WHERE idusuario = :ID", array(
+		':LOGIN'=>$this->getDeslogin(),
+		':PASSWORD'=>$this->getDessenha(),
+		':ID'=>$this->getIdusuario()
+	));
+
+}
+
+public function delete(){
+	$sql = new Sql();
+
+	$sql->query("DELETE FROM tb_usuarios WHERE idusuario = :ID", array(
+		"ID"=>$this->getIdusuario()
+	));
+
+	$this->setIdusuario(0);
+	$this->setDeslogin("");
+	$this->setDessenha("");
+	$this->setDtcadastro(new DateTime());
+}
+
+public function __construct($login = "", $password=""){
+	$this->setDeslogin($login);
+	$this->setDessenha($password);
+
 }
 
 public function __toString(){

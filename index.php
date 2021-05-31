@@ -20,13 +20,34 @@ require_once("config.php");
 //echo json_encode($search);
 
 //AULA 66.c - CARREGA UMA LISTA DE USUARIOS com parametro - testando se usuario e senha validos
+//$usuario = new Usuario();
+//$usuario->login("joao", "qwerty");
+//echo $usuario;
+
+//AULA 67 - INSERT
+//SEM O METODO __construct()
+//$aluno = new Usuario();
+//$aluno->setDeslogin("Aluno");
+//$aluno->setDessenha("@alun0");
+
+//COM O METODO __construct()
+//se criar a funcao __construct, nao precisa disso, gsx-dr o sets no __construct e o parametro passa para Usuario
+/*$aluno = new Usuario("Aluno2", "@aluno");
+$aluno->insert();
+echo $aluno;*/
+
+//AULA 68 - UPDATE
+/*$usuario = new Usuario();
+$usuario->loadById(8);
+$usuario->update("professor", "123456");
+echo $usuario;*/
+
+
+//AULA 69 - DELETE
 $usuario = new Usuario();
-$usuario->login("joao", "qwerty");
-
+$usuario->loadByID(9);
+$usuario->delete();
 echo $usuario;
-
-
-
 
 
  ?>
